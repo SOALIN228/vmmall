@@ -5,6 +5,7 @@
     </header>
     <my-scroll>
       <home-slider></home-slider>
+      <home-nav></home-nav>
     </my-scroll>
     <div class="g-backtop-container"></div>
     <router-view></router-view>
@@ -15,13 +16,15 @@
 import MyScroll from 'base/scroll'
 import HomeHeader from './header'
 import HomeSlider from './slider'
+import HomeNav from './nav'
 
 export default {
   name: 'Home',
   components: {
     MyScroll,
     HomeHeader,
-    HomeSlider
+    HomeSlider,
+    HomeNav
   },
   data () {
     return {}
