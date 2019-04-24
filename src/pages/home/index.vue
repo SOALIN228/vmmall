@@ -4,7 +4,8 @@
       <home-header></home-header>
     </header>
     <my-scroll :data="recommends"
-               pullDown>
+               pullDown
+               @pull-down="pullToRefresh">
       <home-slider></home-slider>
       <home-nav></home-nav>
       <home-recommend @loading="getRecommends"></home-recommend>
@@ -41,6 +42,12 @@ export default {
     },
     getRecommends (recommends) {
       this.recommends = recommends
+    },
+    pullToRefresh (end) {
+      setTimeout(() => {
+        console.log('???')
+        end()
+      }, 1000)
     }
   }
 }

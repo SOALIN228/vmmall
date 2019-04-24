@@ -48,6 +48,7 @@ export default {
   },
   data () {
     return {
+      pulling: false,
       pullDownText: PULL_DOWN_TEXT_INIT,
       swiperOption: {
         direction: 'vertical',
@@ -59,7 +60,8 @@ export default {
           hide: true // 自动隐藏
         },
         on: {
-          sliderMove: this.scroll
+          sliderMove: this.scroll,
+          touchEnd: this.touchEnd
         }
       }
     }
@@ -75,6 +77,10 @@ export default {
     },
 
     scroll () {
+      if (this.pulling) {
+        return
+      }
+
       const swiper = this.$refs.swiper.swiper
 
       if (swiper.translate > 0) {
@@ -87,6 +93,37 @@ export default {
           this.$refs.pullDownLoading.setText(PULL_DOWN_TEXT_INIT)
         }
       }
+    },
+    touchEnd () {
+      if (this.pulling) {
+        return
+      }
+
+      const swiper = this.$refs.swiper.swiper
+
+      if (swiper.translate > 0) {
+        if (!this.pullDown) {
+          return
+        }
+
+        this.pulling = true
+        swiper.allowTouchMove = false// 禁止触摸
+        swiper.setTransition(swiper.params.speed)
+        swiper.setTranslate(PULL_DOWN_HEIGHT) // 回到设定的高度
+        swiper.params.virtualTranslate = true // 定住不给回弹
+        this.$refs.pullDownLoading.setText(PULL_DOWN_TEXT_ING)
+        this.$emit('pull-down', this.pullDownEnd)// 触发一个事件
+      }
+    },
+    pullDownEnd () {
+      const swiper = this.$refs.swiper.swiper
+
+      this.pulling = false
+      this.$refs.pullDownLoading.setText(PULL_DOWN_TEXT_END)
+      swiper.params.virtualTranslate = false
+      swiper.allowTouchMove = true
+      swiper.setTransition(swiper.params.speed)
+      swiper.setTranslate(0)
     }
   }
 }
