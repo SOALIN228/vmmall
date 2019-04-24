@@ -5,7 +5,7 @@
         <img src="./loading.gif" alt="">
       </slot>
     </span>
-    <span class="mine-loading-text" v-if="text">{{text}}</span>
+    <span class="mine-loading-text" v-if="loadingText">{{loadingText}}</span>
   </div>
 </template>
 
@@ -30,7 +30,19 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      loadingText: this.text
+    }
+  },
+  methods: {
+    setText (text) {
+      this.loadingText = text
+    }
+  },
+  watch: {
+    setText (text) {
+      this.loadingText = text
+    }
   }
 }
 </script>

@@ -3,7 +3,8 @@
     <header class="g-header-container">
       <home-header></home-header>
     </header>
-    <my-scroll :data="recommends">
+    <my-scroll :data="recommends"
+               pullDown>
       <home-slider></home-slider>
       <home-nav></home-nav>
       <home-recommend @loading="getRecommends"></home-recommend>
