@@ -29,12 +29,12 @@ export default {
     return {
       swiperOption: {
         direction: 'vertical',
-        slidesPerView: 'auto',
-        freeMode: true,
-        setWrapperSize: true,
+        slidesPerView: 'auto', // 一页显示的图片
+        freeMode: true, // 自由模式，随便滚，不用一页一页的
+        setWrapperSize: true, // 将高度添加到标签上
         scrollbar: {
           el: this.scrollbar ? '.swiper-scrollbar' : null,
-          hide: true
+          hide: true // 自动隐藏
         }
       }
     }
