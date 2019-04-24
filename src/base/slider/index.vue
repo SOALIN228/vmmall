@@ -1,5 +1,5 @@
 <template>
-  <swiper :options="swiperOption">
+  <swiper :options="swiperOption" :key="keyId">
     <slot></slot>
     <div class="swiper-pagination" v-if="pagination" slot="pagination"></div>
   </swiper>
@@ -38,11 +38,34 @@ export default {
     pagination: {
       type: Boolean,
       default: true
+    },
+    data: {
+      type: Array,
+      default () {
+        return []
+      }
     }
   },
   data () {
     return {
-      swiperOption: {
+      keyId: Math.random()
+    }
+  },
+  watch: {
+    data (newData) {
+      if (newData.length === 0) {
+        return
+      }
+      this.swiperOption.loop = newData.length === 1 ? false : this.loop
+      this.keyId = Math.random()
+    }
+  },
+  created () {
+    this.init()
+  },
+  methods: {
+    init () {
+      this.swiperOption = {
         watchOverflow: true, // 只有一张图片滑动会失效
         direction: this.direction,
         autoplay: this.interval ? {
@@ -50,7 +73,7 @@ export default {
           disableOnInteraction: false
         } : false,
         slidesPerView: 1, // 容器同时显示一张图片
-        loop: this.loop,
+        loop: this.data.length === 1 ? false : this.loop,
         pagination: {
           el: this.pagination ? '.swiper-pagination' : null
         }

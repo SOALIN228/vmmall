@@ -6,7 +6,7 @@
     <my-scroll :data="recommends"
                pullDown
                @pull-down="pullToRefresh">
-      <home-slider></home-slider>
+      <home-slider ref="slider"></home-slider>
       <home-nav></home-nav>
       <home-recommend @loading="getRecommends"></home-recommend>
     </my-scroll>
@@ -44,10 +44,11 @@ export default {
       this.recommends = recommends
     },
     pullToRefresh (end) {
-      setTimeout(() => {
-        console.log('???')
-        end()
-      }, 1000)
+      this.$refs.slider.update().then(end)
+      // setTimeout(() => {
+      //   console.log('???')
+      //   end()
+      // }, 1000)
     }
   }
 }
