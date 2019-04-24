@@ -11,10 +11,10 @@ import 'swiper/dist/css/swiper.css'
 fastclick.attach(document.body)
 
 Vue.use(VueLazyload, {
-  preLoad: 1,
-  error: require('assets/img/error.png'),
-  loading: require('assets/img/loading.gif'),
-  attempt: 1
+  preLoad: 1, // 完全显示加载
+  error: require('assets/img/error.png'), // 失败显示
+  loading: require('assets/img/loading.gif'), // 成功显示
+  attempt: 1 // 加载次数
 })
 
 Vue.config.productionTip = false
